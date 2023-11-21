@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Formatter</title>
+    <style>
+        textarea {
+            width: 400px;
+            height: 200px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <textarea id="inputText" placeholder="Enter text here..."></textarea>
+        <textarea id="outputText" readonly placeholder="Formatted text will appear here..."></textarea>
+    </div>
+    <button onclick="formatText()">Format Text</button>
+
+    <script>
+        function formatText() {
+            var input = document.getElementById('inputText').value;
+            
+            // Replace non-breaking spaces with normal spaces
+            input = input.replace(/\u00A0/g, ' ');
+
+            // Split the text by double line breaks to separate paragraphs
+            var paragraphs = input.split(/\n\s*\n/);
+
+            // Remove single line breaks within paragraphs and join them back
+            var formattedText = paragraphs.map(function(paragraph) {
+                return paragraph.replace(/\n/g, ' ');
+            }).join('\n\n');
+
+            document.getElementById('outputText').value = formattedText;
+        }
+    </script>
+</body>
+</html>
